@@ -1,0 +1,26 @@
+#!/bin/sh -e
+
+PREREQS=""
+
+prereqs() { echo "$PREREQS"; }
+
+case "$1" in
+    prereqs)
+    prereqs
+    exit 0
+    ;;
+esac
+
+. /usr/share/initramfs-tools/hook-functions
+
+mkdir -p "$DESTDIR/etc"
+cp -a /etc/mdev.conf "$DESTDIR/etc/"
+if [ -d /lib/mdev -a -n "`ls /lib/mdev/`" ] 
+do
+    mkdir -p "$DESTDIR/lib/mdev"
+    cp -a /lib/mdev/* "$DESTDIR/lib/mdev"
+    copy_exec /sbin/blkid /sbin
+done
+mkdir -p "$DESTDIR/sbin"
+ln -s /bin/busybox "$DESTDIR/sbin/mdev"
+

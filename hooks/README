@@ -1,0 +1,23 @@
+Notes:
+mdev-top -> /usr/share/initramfs-tools/scripts/init-top/mdev
+mdev-bottom -> /usr/share/initramfs-tools/scripts/init-bottom/mdev
+mdev-hook -> /usr/share/initramfs-tools/hooks/mdev
+
+mdev-top is equivalent to /etc/init.d/mdev start
+#to ensure that evdev and disk drivers get tried:
+modprobe -abq evdev sd
+echo /sbin/mdev ...
+mdev -s
+modprobe ...
+[ -z "$ROOTDELAY" ] || sleep "${ROOTDELAY}"
+
+mdev-bottom is run before switchroot;
+-stop any daemons
+-move and link /dev:
+echo >/proc/sys/kernel/hotplug
+mount -n -o move /dev ${rootmnt}/dev
+rm -rf /dev
+ln -s ${rootmnt}/dev /dev
+echo "/sbin/mdev" >/proc/sys/kernel/hotplug
+
+mdev-hook copies mdev and needed files into initrd.

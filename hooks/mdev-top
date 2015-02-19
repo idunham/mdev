@@ -1,0 +1,21 @@
+#!/bin/sh -e
+# set up mdev for an initrd
+PREREQS=""
+case "$1" in
+    prereqs)
+    echo "$PREREQS"
+    exit 0
+    ;;
+esac
+
+# make sure evdev and sd are loaded early
+modprobe -abq evdev sd
+# try both old and new names
+[ -w /proc/sys/kernel/hotplug ] &&  \
+    echo "/sbin/mdev" >/proc/sys/kernel/hotplug || true
+[ -w /sys/kernel/uevent_helper ] && \
+    echo "/sbin/mdev" >/sys/kernel/uevent_helper || true
+mdev -s
+grep -h MODALIAS /sys/bus/*/devices/*/uevent 2>/dev/null | \
+	cut -d= -f2 |xargs modprobe -abq
+[ -z "$ROOTDELAY" ] || sleep "${ROOTDELAY}"

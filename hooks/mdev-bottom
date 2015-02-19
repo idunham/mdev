@@ -1,0 +1,23 @@
+#!/bin/sh -e
+#get an mdev-based initrd ready to switch root
+PREREQS=""
+case "$1" in
+    prereqs)
+    echo "$PREREQS"
+    exit 0
+    ;;
+esac
+
+#disable hotplug so as to avoid creating a node in /dev at the wrong time
+[ -w /proc/sys/kernel/hotplug ] &&  \
+    echo >/proc/sys/kernel/hotplug || true
+[ -w /sys/kernel/uevent_helper ] && \
+    echo >/sys/kernel/uevent_helper || true
+#NOTE: busybox mount does not use -n
+mount -n -o move /dev ${rootmnt}/dev
+rm -rf /dev
+ln -s ${rootmnt}/dev /dev
+[ -w /proc/sys/kernel/hotplug ] &&  \
+    echo "/sbin/mdev" >/proc/sys/kernel/hotplug || true
+[ -w /sys/kernel/uevent_helper ] && \
+    echo "/sbin/mdev" >/sys/kernel/uevent_helper || true
