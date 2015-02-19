@@ -16,11 +16,11 @@ esac
 mkdir -p "$DESTDIR/etc"
 cp -a /etc/mdev.conf "$DESTDIR/etc/"
 if [ -d /lib/mdev -a -n "`ls /lib/mdev/`" ] 
-do
+then
     mkdir -p "$DESTDIR/lib/mdev"
     cp -a /lib/mdev/* "$DESTDIR/lib/mdev"
     copy_exec /sbin/blkid /sbin
-done
+fi
 mkdir -p "$DESTDIR/sbin"
 ln -s /bin/busybox "$DESTDIR/sbin/mdev"
 
