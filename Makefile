@@ -14,9 +14,9 @@ install:
 	mkdir -p -m 0755 ${DESTDIR}/lib/mdev
 	mkdir -p -m 0755 ${DESTDIR}${DOCDIR}/mdev
 	mkdir -p -m 0755 ${DESTDIR}${MANDIR}/man8		\
-		${DESTDIR}${MKDIRDIR}/scripts/init-top 		\
-		${DESTDIR}${MKDIRDIR}/scripts/init-bottom 	\
-		${DESTDIR}${MKDIRDIR}/hooks
+		${DESTDIR}${MKIRDDIR}/scripts/init-top 		\
+		${DESTDIR}${MKIRDDIR}/scripts/init-bottom 	\
+		${DESTDIR}${MKIRDDIR}/hooks
 	install -m 0644 mdev.conf ${DESTDIR}/etc
 	install -m 0755 mdev.init ${DESTDIR}/etc/init.d
 	ln -fs /bin/busybox ${DESTDIR}/sbin/mdev
