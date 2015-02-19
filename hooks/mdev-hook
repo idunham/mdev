@@ -24,3 +24,6 @@ fi
 mkdir -p "$DESTDIR/sbin"
 ln -s /bin/busybox "$DESTDIR/sbin/mdev"
 
+# Apparently, this somehow only gets copied if udev is installed.
+copy_modules_dir kernel/drivers/scsi
+

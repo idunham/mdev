@@ -8,8 +8,7 @@ case "$1" in
     ;;
 esac
 
-# make sure evdev and sd are loaded early
-modprobe -abq evdev sd
+modprobe -abq sd_mod
 # try both old and new names
 [ -w /proc/sys/kernel/hotplug ] &&  \
     echo "/sbin/mdev" >/proc/sys/kernel/hotplug || true
