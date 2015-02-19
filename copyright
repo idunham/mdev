@@ -1,0 +1,11 @@
+mdev.conf and most of the helper scripts (dvbdev, usbdev, xvd_links)
+come from the Alpine Linux busybox-initscripts package; mdev.conf was
+slightly adjusted, while the helpers are unmodified.
+These are licensed under the GPL, version 2; on a Debian system, you
+can find the text of the GPL at:
+/usr/share/common-licenses/GPL-2 
+
+All the initramfs hooks, the mdev init script, and the disk_link.sh helper
+script were written from scratch by Isaac Dunham, and are public domain
+without warranty.
+
