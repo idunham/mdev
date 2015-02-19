@@ -10,7 +10,7 @@ MKIRDDIR?=${PREFIX}/share/initramfs-tools
 install:
 	mkdir -p -m 0755 ${DESTDIR}/etc/init.d ${DESTDIR}/sbin
 	mkdir -p -m 0755 ${DESTDIR}/lib/mdev
-	mkdir -p -m 0755 ${DESTDIR}/lib/mdev
+	mkdir -p -m 0755 ${DESTDIR}${DOCDIR}/mdev
 	install -m 0644 mdev.conf ${DESTDIR}/etc
 	install -m 0755 mdev.init ${DESTDIR}/etc/init.d
 	ln -fs /bin/busybox ${DESTDIR}/sbin/mdev
@@ -22,4 +22,5 @@ install:
 	install -m 0755 hooks/mdev-hook 		\
 		${DESTDIR}${MKIRDDIR}/hooks/mdev
 	cp -Rp helpers/* ${DESTDIR}/lib/mdev
+	install -m 0644 copyright ${DESTDIR}${DOCDIR}/mdev/copyright
 
