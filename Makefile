@@ -7,6 +7,8 @@ MANDIR	?=${PREFIX}/share/man
 MKIRDDIR?=${PREFIX}/share/initramfs-tools
 
 
+all:
+
 install:
 	mkdir -p -m 0755 ${DESTDIR}/etc/init.d ${DESTDIR}/sbin
 	mkdir -p -m 0755 ${DESTDIR}/lib/mdev
