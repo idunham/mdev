@@ -1,0 +1,56 @@
+#!/bin/busybox sh
+### BEGIN INIT INFO
+# Provides:          mdev udev
+# Required-Start:    mountkernfs
+# Required-Stop:    
+# Default-Start:     S
+# Default-Stop:      
+# Short-Description: Start Busybox device manager
+# Description:       Initializes /dev by way of mdev -s and 
+#                    setting mdev as the hotplugger
+### END INIT INFO
+
+# Author: Isaac Dunham <idunham@gmail.com>
+#
+# Please remove the "Author" lines above and replace them
+# with your own name if you copy and modify this script.
+
+DESC="Start BusyBox device manager"
+HOTPLUG=/sbin/mdev
+SEEDCMD=$HOTPLUG
+SEEDOPT="-s"
+
+. /lib/lsb/init-functions
+
+start() {
+  log_daemon_msg "Starting the hotplugger" "mdev"
+  echo $HOTPLUG >/proc/sys/kernel/hotplug
+  $SEEDCMD $SEEDOPT 
+  log_end_msg $? || true
+  grep -h MODAL /sys/bus/*/devices/*/uevent 2>/dev/null | \
+    cut -d= -f2 |xargs modprobe -abq 2>/dev/null &
+  mountpoint -q /dev/pts	|| \
+    { mkdir -p /dev/pts	&& mount -t devpts devpts /dev/pts
+      }
+  if ! mountpoint -q /dev/shm
+    then
+    if mountpoint -q /run/shm
+      then ln -sf /run/shm /dev/shm
+      else mkdir -p /dev/shm && mount -t tmpfs shm /dev/shm
+    fi
+  fi
+}
+
+case $1 in
+  start)
+    start ;;
+  restart|force-reload)
+    echo $HOTPLUG >/proc/sys/kernel/hotplug ;;
+  stop)
+    exit 0;;
+  status)
+    grep "$HOTPLUG" /proc/sys/kernel/hotplug >/dev/null || exit 3
+    ;;
+  *) echo "Usage: $0 start | restart"
+     echo "$DESC" ;;
+esac
