@@ -8,6 +8,9 @@ case "$1" in
     ;;
 esac
 
+# if udevadm is executeable, don't run (let udev run)
+[ ! -x /sbin/udevadm ] || exit 0
+
 modprobe -abq sd_mod
 # try both old and new names
 [ -w /proc/sys/kernel/hotplug ] &&  \

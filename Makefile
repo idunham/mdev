@@ -10,7 +10,8 @@ MKIRDDIR?=${PREFIX}/share/initramfs-tools
 all:
 
 install:
-	mkdir -p -m 0755 ${DESTDIR}/etc/init.d ${DESTDIR}/sbin
+	mkdir -p -m 0755 ${DESTDIR}/etc/init.d ${DESTDIR}/sbin	\
+		${DESTDIR}/etc/modprobe.d
 	mkdir -p -m 0755 ${DESTDIR}/lib/mdev
 	mkdir -p -m 0755 ${DESTDIR}${DOCDIR}/mdev
 	mkdir -p -m 0755 ${DESTDIR}${MANDIR}/man8		\
@@ -29,4 +30,5 @@ install:
 		${DESTDIR}${MKIRDDIR}/hooks/mdev
 	cp -Rp helpers/* ${DESTDIR}/lib/mdev
 	install -m 0644 copyright ${DESTDIR}${DOCDIR}/mdev/copyright
+	install -m 0644 mdev-nofb.conf ${DESTDIR}/etc/modprobe.d/
 

@@ -8,6 +8,9 @@ case "$1" in
     ;;
 esac
 
+# If udevadm is here, udev manages /dev
+[ ! -x /sbin/udevadm ] || exit 0
+
 #disable hotplug so as to avoid creating a node in /dev at the wrong time
 [ -w /proc/sys/kernel/hotplug ] &&  \
     echo >/proc/sys/kernel/hotplug || true
