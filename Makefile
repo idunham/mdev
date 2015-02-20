@@ -18,7 +18,7 @@ install:
 		${DESTDIR}${MKIRDDIR}/scripts/init-bottom 	\
 		${DESTDIR}${MKIRDDIR}/hooks
 	install -m 0644 mdev.conf ${DESTDIR}/etc
-	install -m 0755 mdev.init ${DESTDIR}/etc/init.d
+	install -m 0755 mdev.init ${DESTDIR}/etc/init.d/mdev
 	ln -fs /bin/busybox ${DESTDIR}/sbin/mdev
 	ln -fs ${MANDIR}/man1/busybox.1.gz ${DESTDIR}${MANDIR}/man8/mdev.8.gz
 	install -m 0755 hooks/mdev-top 				\
