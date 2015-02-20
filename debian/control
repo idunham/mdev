@@ -1,0 +1,18 @@
+Source: mdev
+Section: admin
+Priority: important
+Maintainer: Isaac Dunham <ibid.ag@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: git://anonscm.debian.org/collab-maint/mdev.git
+#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/mdev.git;a=summary
+
+Package: mdev
+Architecture: all
+Depends: ${misc:Depends}, busybox-static | busybox
+Provides: udev
+Description: mdev, the busybox hotplugger
+ mdev is the hotplugger that comes with busybox; it is configured via
+ /etc/mdev.conf.
+ This replaces udev, so you probably don't want it.
