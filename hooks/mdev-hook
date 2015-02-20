@@ -25,7 +25,7 @@ cp -a /etc/mdev.conf "$DESTDIR/etc/"
 echo "root:x:0:0:root:/:/bin/sh" >$DESTDIR/etc/passwd
 chmod 0644 $DESTDIR/etc/passwd
 # and make groups visible to mdev in initrd
-cp /etc/groups $DESTDIR/groups
+cp /etc/group $DESTDIR/etc/group
 
 if [ -d /lib/mdev -a -n "`ls /lib/mdev/`" ] 
 then
