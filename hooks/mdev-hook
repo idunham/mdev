@@ -13,8 +13,20 @@ esac
 
 . /usr/share/initramfs-tools/hook-functions
 
+# The mdev hook functionally duplicates the udev hook,
+# and thus could render a system unbootable if co-installed.
+if [ -x /usr/share/initramfs-tools/hooks/udev ]
+then exit 0
+fi
+
 mkdir -p "$DESTDIR/etc"
 cp -a /etc/mdev.conf "$DESTDIR/etc/"
+# silence complaints about not knowing who "root" is
+echo "root:x:0:0:root:/:/bin/sh" >$DESTDIR/etc/passwd
+chmod 0644 $DESTDIR/etc/passwd
+# and make groups visible to mdev in initrd
+cp /etc/groups $DESTDIR/groups
+
 if [ -d /lib/mdev -a -n "`ls /lib/mdev/`" ] 
 then
     mkdir -p "$DESTDIR/lib/mdev"
