@@ -27,14 +27,12 @@ if test "$ACTION" = "remove"
     exit
   fi
 
-if test "$DEVTYPE" = "partition"
+if test -b "/dev/$MDEV"
   then
     mkdir -p /dev/disk/by-uuid /dev/disk/by-label
     blkid /dev/$MDEV | blkid_to_link
   else
-    test -e /dev/disk/.mdev && exit
     mkdir -p /dev/disk/by-uuid /dev/disk/by-label || exit
-    touch /dev/disk/.mdev
     blkid | blkid_to_link
   fi
 
