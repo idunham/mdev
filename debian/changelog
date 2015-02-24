@@ -1,14 +1,18 @@
+mdev (0.6.1) unstable; urgency=medium
+
+  * Add some compatability symlinks in /dev
+  * Make disk_link.sh overwrite old symlinks (silences boot)
+  * Use a proper native version.
+
+ -- Isaac Dunham <ibid.ag@gmail.com>  Mon, 23 Feb 2015 05:10:36 +0000
+
 mdev (0.6-3) unstable; urgency=medium
 
-  * Bugfix: /lib/mdev/disk_link.sh tried to optimize by doing multiple
-    devices at once when called from mdev -s.
-    To make this efficient, we used a lockfile.
-    The net effect was that when seeding an empty /dev, disk_link.sh
-    would do nothing.
+  * Fix disk_link.sh
 
- -- Isaac Dunham <ibid.ag@gmail.com>  Sun, Feb 22 2015 06:14:48 +0000
+ -- Isaac Dunham <ibid.ag@gmail.com>  Sun, 22 Feb 2015 17:30:50 +0000
 
-mdev (0.6-2) UNRELEASED; urgency=medium
+mdev (0.6-2) unstable; urgency=medium
 
   * Fix "co-exist with udev" logic.
     The initial version was absolutely worthless, except that it did

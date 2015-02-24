@@ -39,6 +39,11 @@ start() {
       else mkdir -p /dev/shm && mount -t tmpfs shm /dev/shm
     fi
   fi
+  ln -sf /proc/kcore /dev/core
+  ln -sf /proc/self/fd /dev/fd
+  ln -sf /proc/self/fd/0 /dev/stdin
+  ln -sf /proc/self/fd/1 /dev/stdout
+  ln -sf /proc/self/fd/2 /dev/stderr
 }
 
 case $1 in

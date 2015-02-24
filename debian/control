@@ -12,6 +12,7 @@ Package: mdev
 Architecture: all
 Depends: ${misc:Depends}, busybox-static | busybox
 Provides: udev
+Breaks: initramfs-tools (<< 0.116)
 Description: mdev, the busybox hotplugger
  mdev is the hotplugger that comes with busybox; it is configured via
  /etc/mdev.conf.

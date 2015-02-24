@@ -8,10 +8,10 @@ do
   do
     case $I in
       UUID*) I="${I#*=?}"
-        cd /dev/disk/by-uuid && ln -s "$DEV" "${I%?}"
+        cd /dev/disk/by-uuid && ln -sf "$DEV" "${I%?}"
 	;;
       LABEL*) I="${I#*=?}"
-        cd /dev/disk/by-label && ln -s "$DEV" "${I%?}"
+        cd /dev/disk/by-label && ln -sf "$DEV" "${I%?}"
 	;;
     esac    
   done
