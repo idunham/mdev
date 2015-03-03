@@ -1,3 +1,9 @@
+mdev (0.6.2) unstable; urgency=medium
+
+  * Sanitize labels
+
+ -- Isaac Dunham <ibid.ag@gmail.com>  Tue, 03 Mar 2015 15:04:13 +0000
+
 mdev (0.6.1) unstable; urgency=medium
 
   * Add some compatability symlinks in /dev
