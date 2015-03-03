@@ -1,20 +1,39 @@
 #!/bin/busybox ash
 
 blkid_to_link()(
-while read DEV AA BB CC DD
+IFS='"'
+unset SUBDIR
+while read A B C D E F G H I J
 do
-  export DEV="${DEV%:}"
-  for I in $AA $BB $CC $DD
+  IFS=
+  for ENT in "$A" "$B" "$C" "$D" "$E" "$F" "$G" "$H" "$I" "$J"
   do
-    case $I in
-      UUID*) I="${I#*=?}"
-        cd /dev/disk/by-uuid && ln -sf "$DEV" "${I%?}"
+    if [ -z "$SUBDIR" ]
+    then
+      case "$ENT" in
+        *PARTUUID=)
+        ;;
+        *UUID=)
+          SUBDIR="by-uuid"
 	;;
-      LABEL*) I="${I#*=?}"
-        cd /dev/disk/by-label && ln -sf "$DEV" "${I%?}"
+        *LABEL=)
+          SUBDIR="by-label"
 	;;
-    esac    
+      esac
+    else
+# Try to sanitize the label.
+      ENT=$(echo "$ENT" | sed -e 's:/:\\x2f:g;s:\$:\\x24:g;s:\":\\x22:g' \
+            -e 's:\ :\\x20:g;s:\;:\\x3b:g;s:`:\\x60:g')
+#      ENT="${ENT/\//\\x2f}"
+#      ENT="${ENT/\$/\\x24}"
+#      ENT="${ENT/\"/\\x22}"
+#      ENT="${ENT/\ /\\x20}"
+#      ENT="${ENT/\`/\\x60}"
+      ln -sf "../../$MDEV" /dev/disk/"$SUBDIR"/"$ENT"
+      unset SUBDIR
+    fi
   done
+  IFS='"'
 done
 )
 
