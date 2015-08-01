@@ -13,7 +13,15 @@ Architecture: all
 Depends: ${misc:Depends}, busybox-static | busybox
 Provides: udev
 Breaks: initramfs-tools (<< 0.116)
+Suggests: xserver-xorg-input-kbd, xserver-xorg-input-mouse, xserver-xorg-input-synaptics, initramfs-tools (>> 0.115)
 Description: mdev, the busybox hotplugger
  mdev is the hotplugger that comes with busybox; it is configured via
  /etc/mdev.conf.
- This replaces udev, so you probably don't want it.
+ This replaces udev, so you probably don't want it unless you know what
+ you're doing.
+ Xorg defaults to using udev to detect input device hotplug; if this is
+ not disabled, you will have no input devices when X starts.
+ Additionally, the default input driver (xserver-xorg-input-evdev) may
+ not work without udev.
+ The package includes configuration files to disable X input hotplugging
+ for you, and suggests three drivers that are more likely to work.

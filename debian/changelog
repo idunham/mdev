@@ -1,3 +1,9 @@
+mdev (0.6.3) unstable; urgency=medium
+
+  * Add xorg configuration files from mdev-like-a-boss.
+
+ -- Isaac Dunham <ibid.ag@gmail.com>  Sat, 01 Aug 2015 14:08:47 -0700
+
 mdev (0.6.2) unstable; urgency=medium
 
   * Sanitize labels
